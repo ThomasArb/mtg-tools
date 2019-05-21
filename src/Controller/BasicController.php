@@ -12,6 +12,6 @@ class BasicController
      */
     public function index(): Response
     {
-        return new Response('It works! ☺');
+        return new Response('Work in progress');
     }
 }

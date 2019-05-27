@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListDeckController!{% endblock %}
+
+{% block body %}
+<div class="list">
+    <ul>
+        {% for deck in decks %}
+        <li>
+            {{ deck.name }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListPlayerController!{% endblock %}
+
+{% block body %}
+    <div class="list">
+        <ul>
+            {% for player in players %}
+                <li>
+                    {{ player.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

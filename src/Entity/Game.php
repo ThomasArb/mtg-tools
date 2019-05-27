@@ -30,7 +30,7 @@ class Game
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\PlayerDeckLink", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $winner;
 

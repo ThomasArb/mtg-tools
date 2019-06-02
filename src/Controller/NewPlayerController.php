@@ -20,7 +20,7 @@ class NewPlayerController
     /**
      * @var EntityManager
      */
-    private $entitymanager;
+    private $entityManager;
 
     /**
      * @var EngineInterface
@@ -50,7 +50,7 @@ class NewPlayerController
         UrlGeneratorInterface $router,
         FormFactoryInterface $formFactory
     ) {
-        $this->entitymanager = $registry->getManagerForClass(Player::class);
+        $this->entityManager = $registry->getManagerForClass(Player::class);
         $this->templatingEngine = $templatingEngine;
         $this->router = $router;
         $this->formFactory = $formFactory;
@@ -70,8 +70,8 @@ class NewPlayerController
         $form = $this->formFactory->create(PlayerType::class, $player);
         $form->handleRequest($request);
         if ( $form->isSubmitted() && $form->isValid()) {
-            $this->entitymanager->persist($player);
-            $this->entitymanager->flush();
+            $this->entityManager->persist($player);
+            $this->entityManager->flush();
         }
         return new Response($this->templatingEngine->render('new_player/index.html.twig', [
             'form' => $form->createView(),

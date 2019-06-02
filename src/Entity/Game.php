@@ -26,7 +26,7 @@ class Game
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\PlayerDeckLink")
      */
-    private $players;
+    private $playerDeckLinks;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\PlayerDeckLink", cascade={"persist", "remove"})
@@ -36,7 +36,7 @@ class Game
 
     public function __construct()
     {
-        $this->players = new ArrayCollection();
+        $this->playerDeckLinks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,24 +59,24 @@ class Game
     /**
      * @return Collection|PlayerDeckLink[]
      */
-    public function getPlayers(): Collection
+    public function getPlayerDeckLinks(): Collection
     {
-        return $this->players;
+        return $this->playerDeckLinks;
     }
 
-    public function addPlayer(PlayerDeckLink $player): self
+    public function addPlayerDeckLinks(PlayerDeckLink $playerDeckLink): self
     {
-        if (!$this->players->contains($player)) {
-            $this->players[] = $player;
+        if (!$this->playerDeckLinks->contains($playerDeckLink)) {
+            $this->playerDeckLinks[] = $playerDeckLink;
         }
 
         return $this;
     }
 
-    public function removePlayer(PlayerDeckLink $player): self
+    public function removePlayer(PlayerDeckLink $playerDeckLink): self
     {
-        if ($this->players->contains($player)) {
-            $this->players->removeElement($player);
+        if ($this->playerDeckLinks->contains($playerDeckLink)) {
+            $this->playerDeckLinks->removeElement($playerDeckLink);
         }
 
         return $this;

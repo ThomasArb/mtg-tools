@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="list">
+        <a href="{{ path('list_deck') }}">
+            <button>Liste des decks</button>
+        </a>
+        <a href="{{ path('list_player') }}">
+            <button>Liste des joueurs</button>
+        </a>
+        <a href="{{ path('new_deck') }}">
+            <button>Nouveau deck</button>
+        </a>
+        <a href="{{ path('new_player') }}">
+            <button>Nouveau joueur</button>
+        </a>
+        <a href="{{ path('new_game') }}">
+            <button>Nouvelle partie</button>
+        </a>
+    </div>
+{% endblock %}

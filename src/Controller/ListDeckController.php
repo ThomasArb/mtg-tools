@@ -15,7 +15,7 @@ class ListDeckController
     /**
      * @var EntityManager
      */
-    private $entitymanager;
+    private $entityManager;
 
     /**
      * @var EngineInterface
@@ -38,7 +38,7 @@ class ListDeckController
         EngineInterface $templatingEngine,
         UrlGeneratorInterface $router
     ) {
-      $this->entitymanager = $registry->getManagerForClass(Deck::class);
+      $this->entityManager = $registry->getManagerForClass(Deck::class);
       $this->templatingEngine = $templatingEngine;
       $this->router = $router;
 
@@ -51,7 +51,7 @@ class ListDeckController
     public function index(): Response
     {
         return new Response($this->templatingEngine->render('list_deck/index.html.twig', [
-            'decks' => $this->entitymanager->getRepository(Deck::class)->findAll(),
+            'decks' => $this->entityManager->getRepository(Deck::class)->findAll(),
         ]));
     }
 }

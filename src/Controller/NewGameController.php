@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Deck;
-use App\Form\DeckType;
+use App\Entity\Game;
+use App\Entity\PlayerDeckLink;
+use App\Form\GameType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class NewDeckController
+class NewGameController
 {
     /**
      * @var EntityManager
@@ -38,7 +39,7 @@ class NewDeckController
     private $formFactory;
 
     /**
-     * NewDeckController constructor.
+     * NewGameController constructor.
      * @param RegistryInterface $registry
      * @param EngineInterface $templatingEngine
      * @param UrlGeneratorInterface $router
@@ -50,7 +51,7 @@ class NewDeckController
         UrlGeneratorInterface $router,
         FormFactoryInterface $formFactory
     ) {
-      $this->entityManager = $registry->getManagerForClass(Deck::class);
+      $this->entityManager = $registry->getManagerForClass(Game::class);
       $this->templatingEngine = $templatingEngine;
       $this->router = $router;
       $this->formFactory = $formFactory;
@@ -58,7 +59,7 @@ class NewDeckController
     }
 
     /**
-     * @Route("/decks/new", name="new_deck")
+     * @Route("/games/new", name="new_game")
      * @param Request $request
      * @return Response
      * @throws ORMException
@@ -66,14 +67,17 @@ class NewDeckController
      */
     public function index(Request $request): Response
     {
-        $deck = new Deck();
-        $form = $this->formFactory->create(DeckType::class, $deck);
+        $game = new Game();
+        for ($i = 0; $i < 4; ++$i) {
+            $game->addPlayerDeckLinks(new PlayerDeckLink());
+        }
+        $form = $this->formFactory->create(GameType::class, $game);
         $form->handleRequest($request);
         if ( $form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($deck);
+            $this->entityManager->persist($game);
             $this->entityManager->flush();
         }
-        return new Response($this->templatingEngine->render('new_deck/index.html.twig', [
+        return new Response($this->templatingEngine->render('new_game/index.html.twig', [
             'form' => $form->createView(),
         ]));
     }

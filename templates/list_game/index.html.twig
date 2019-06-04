@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListGameController!{% endblock %}
+
+{% block body %}
+    <div class="list">
+        {% for game in games %}
+            <div>
+                <p>{{ game.date | date('d/m/Y') }}</p>
+                {% for link in game.playerDeckLinks %}
+                    <p>{{ link.player.name }} : {{ link.deck.name }} {% if link.win %}WINNER{% endif %}</p>
+                {% endfor %}
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -17,20 +17,39 @@ class PlayerDeckLink
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Player")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Deck", inversedBy="playerDeckLinks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $deck;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="playerDeckLinks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $player;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Deck")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $deck;
+    private $win = false;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDeck(): ?Deck
+    {
+        return $this->deck;
+    }
+
+    public function setDeck(?Deck $deck): self
+    {
+        $this->deck = $deck;
+
+        return $this;
     }
 
     public function getPlayer(): ?Player
@@ -45,14 +64,14 @@ class PlayerDeckLink
         return $this;
     }
 
-    public function getDeck(): ?Deck
+    public function getWin(): ?bool
     {
-        return $this->deck;
+        return $this->win;
     }
 
-    public function setDeck(?Deck $deck): self
+    public function setWin(bool $win): self
     {
-        $this->deck = $deck;
+        $this->win = $win;
 
         return $this;
     }

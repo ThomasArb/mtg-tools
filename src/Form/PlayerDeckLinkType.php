@@ -7,6 +7,7 @@ use App\Entity\Player;
 use App\Entity\PlayerDeckLink;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,9 @@ class PlayerDeckLinkType extends AbstractType
             ->add('deck', EntityType::class, [
                 'class' => Deck::class,
                 'choice_label' => 'name',
+            ])
+            ->add('win',CheckboxType::class, [
+                'required' => false,
             ])
         ;
     }

@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,19 +27,14 @@ class Game
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\PlayerDeckLink")
+     * @ORM\ManyToMany(targetEntity="App\Entity\PlayerDeckLink", cascade={"persist"})
      */
     private $playerDeckLinks;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\PlayerDeckLink", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $winner;
 
     public function __construct()
     {
         $this->playerDeckLinks = new ArrayCollection();
+        $this->date = new DateTime('now', new DateTimeZone('Europe/Paris'));
     }
 
     public function getId(): ?int
@@ -44,12 +42,12 @@ class Game
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -78,18 +76,6 @@ class Game
         if ($this->playerDeckLinks->contains($playerDeckLink)) {
             $this->playerDeckLinks->removeElement($playerDeckLink);
         }
-
-        return $this;
-    }
-
-    public function getWinner(): ?PlayerDeckLink
-    {
-        return $this->winner;
-    }
-
-    public function setWinner(PlayerDeckLink $winner): self
-    {
-        $this->winner = $winner;
 
         return $this;
     }

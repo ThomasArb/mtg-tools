@@ -3,7 +3,23 @@
 {% block title %}Hello NewGameController!{% endblock %}
 
 {% block body %}
-    <div class="form">
-        {{ form(form) }}
+    <div class="form container">
+        {{ form_start(form) }}
+        {% for playerLinkField in form.playerDeckLinks %}
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    {{ form_widget(playerLinkField.win) }}
+                </div>
+                <div class="col">
+                    {{ form_widget(playerLinkField.player) }}
+                </div>
+                <div class="col">
+                    {{ form_widget(playerLinkField.deck) }}
+                </div>
+            </div>
+        {% endfor %}
+        {{ form_rest(form) }}
+        <input class="btn btn-primary" type="submit" value="Sauvegarder"/>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
